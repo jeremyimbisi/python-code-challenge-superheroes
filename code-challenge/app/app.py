@@ -1,16 +1,18 @@
-#!/usr/bin/env python3
-
 from flask import Flask, make_response
 from flask_migrate import Migrate
-
 from models import db, Hero
 
+# creating the application instance (flask)
 app = Flask(__name__)
+
+#configuring the database  modifications
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+#initializing the migration with flask
 migrate = Migrate(app, db)
 
+#initialize the flask app with the database
 db.init_app(app)
 
 @app.route('/heroes', methods=['GET'])
