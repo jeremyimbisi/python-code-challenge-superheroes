@@ -19,10 +19,10 @@ class Hero(db.Model):
     name = db.Column(db.String(255), nullable=False)
     super_name = db.Column(db.String(255), nullable=False)
 
-    # Define a relationship with the HeroPower model
+    # Defining the relationship with the HeroPower model
     powers = db.relationship('HeroPower', back_populates='hero', overlaps='hero')
 
-# Define the Power model
+# Defining  the Power model
 class Power(db.Model):
     __tablename__ = 'power'  
 
@@ -30,17 +30,17 @@ class Power(db.Model):
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=False)
 
-    # Validate the description attribute to ensure it has a minimum length
+    # Validation of the  description attribute to ensure it has a minimum length
     @validates('description')
     def validate_description(self, key, description):
         if len(description) < 20:
             raise ValueError('Description must be at least 20 characters long')
         return description
 
-    # Define a relationship with the HeroPower model
+    # Defining  a relationship with the HeroPower model
     heroes = db.relationship('HeroPower', back_populates='power', viewonly=True)
 
-# Define the HeroPower model
+# Definition if the  HeroPower model
 class HeroPower(db.Model):
     __tablename__ = 'hero_power'
 
@@ -48,7 +48,7 @@ class HeroPower(db.Model):
     hero_id = db.Column(db.Integer, db.ForeignKey('hero.id'), primary_key=True)
     power_id = db.Column(db.Integer, db.ForeignKey('power.id'), primary_key=True)
 
-    # Define relationships with the Hero and Power models
+    # Definition of the  relationships with the Hero and Power models
     hero = db.relationship('Hero', back_populates='powers', overlaps='powers')
     power = db.relationship('Power', back_populates='heroes', overlaps='heroes')
 
